@@ -6,8 +6,9 @@ function init() {
     };
 
     pack = function (projectPath, zipPath, callback) {
-        var c = 0, o = 1, a = 2, B = 3, w = 4, packetHead = [new Buffer(1), new Buffer(4), new Buffer(4), new Buffer(4), new Buffer(1)];
-        packetHead[c].writeIntLE(190), packetHead[o].writeInt32BE(1), packetHead[w].writeIntLE(237);
+        var startIndex = 0, first = 1, second = 2, third = 3, four = 4, packetHead = [new Buffer(1), new Buffer(4), new Buffer(4), new Buffer(4), new Buffer(1)];
+        packetHead[startIndex].writeIntLE(190), packetHead[first].writeInt32BE(1), packetHead[four].writeIntLE(237);
+        console.log(packetHead);
 
         var fileNumber = 0, pathWithPacketHeadBuffer = [], pathWithPacketHead = [], relativePaths = [], fileDatas = [], fileDatasBuffer = [];
         glob(projectPath + "/**", {nodir: !0}, function (size, files) {
@@ -39,13 +40,14 @@ function init() {
                 pathWithPacketHeadBuffer = Buffer.concat(pathWithPacketHead);
                 fileDatasBuffer = Buffer.concat(fileDatas);
 
-                packetHead[a].writeInt32BE(pathWithPacketHeadBuffer.length);
-                packetHead[B].writeInt32BE(fileDatasBuffer.length);
+                packetHead[second].writeInt32BE(pathWithPacketHeadBuffer.length);
+                packetHead[third].writeInt32BE(fileDatasBuffer.length);
                 packetHead = Buffer.concat(packetHead);
 
                 var zipData = Buffer.concat([packetHead, pathWithPacketHeadBuffer, fileDatasBuffer]);
                 fs.writeFileSync(zipPath, zipData);
-                log.info("pack.js create " + zipPath + " success!");
+
+                log.info("pack.js create " + zipPath + " success!"  );
                 callback(null, zipPath);
             }()
         })

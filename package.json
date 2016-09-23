@@ -9,6 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "glob": "^7.1.0"
+    "glob": "^7.1.0",
+    "lodash": "^4.16.1"
   }
 }
