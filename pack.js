@@ -25,12 +25,12 @@ function init() {
 
                 var packetLength = 18 + 12 * fileNumber + Buffer.concat(relativePaths).length;
                 pathWithPacketHead = relativePaths.map(function (path, index) {
-                    var t = new Buffer(4);
-                    t.writeInt32BE(path.length);
-                    var f = new Buffer(4), u = fileDatas[index].length, i = packetLength;
-                    f.writeInt32BE(i), packetLength += u;
-                    var c = new Buffer(4);
-                    return c.writeInt32BE(u), Buffer.concat([t, path, f, c])
+                    var pathLength = new Buffer(4);
+                    pathLength.writeInt32BE(path.length);
+                    var currentPacketLengthBuffer = new Buffer(4), fileDataLength = fileDatas[index].length, currentPacketLength = packetLength;
+                    currentPacketLengthBuffer.writeInt32BE(currentPacketLength), packetLength += fileDataLength;
+                    var fileDataLengthBuffer = new Buffer(4);
+                    return fileDataLengthBuffer.writeInt32BE(fileDataLength), Buffer.concat([pathLength, path, currentPacketLengthBuffer, fileDataLengthBuffer])
                 });
 
                 var filesNumberBuffer = new Buffer(4);
@@ -47,7 +47,7 @@ function init() {
                 var zipData = Buffer.concat([packetHead, pathWithPacketHeadBuffer, fileDatasBuffer]);
                 fs.writeFileSync(zipPath, zipData);
 
-                log.info("pack.js create " + zipPath + " success!"  );
+                log.info("pack.js create " + zipPath + " success!");
                 callback(null, zipPath);
             }()
         })

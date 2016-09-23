@@ -6,10 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Phodal Huang",
   "license": "MIT",
   "dependencies": {
-    "glob": "^7.1.0",
-    "lodash": "^4.16.1"
+    "glob": "^7.1.0"
   }
 }
