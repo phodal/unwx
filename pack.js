@@ -30,6 +30,12 @@ function init() {
                     var currentPacketLengthBuffer = new Buffer(4), fileDataLength = fileDatas[index].length, currentPacketLength = packetLength;
                     currentPacketLengthBuffer.writeInt32BE(currentPacketLength), packetLength += fileDataLength;
                     var fileDataLengthBuffer = new Buffer(4);
+
+                    console.log(currentPacketLengthBuffer.readInt32BE(0, 5));
+
+                    fileDataLengthBuffer.writeInt32BE(fileDataLength);
+                    console.log(fileDataLengthBuffer.readInt32BE(0, 5));
+
                     return fileDataLengthBuffer.writeInt32BE(fileDataLength), Buffer.concat([pathLength, path, currentPacketLengthBuffer, fileDataLengthBuffer])
                 });
 
