@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 var fs = require("fs");
-var lodash = require("lodash");
 var filendir = require('filendir');
 var program = require('commander');
 
