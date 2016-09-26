@@ -1,14 +1,19 @@
 {
   "name": "unwx",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "a simple unpackage scripts for weapp wx file.",
   "main": "unwx.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "unwx": "unwx.js"
+  },
+  "keywords": ["weapp", "weixin", "wx", "unwx"],
   "author": "Phodal Huang",
   "license": "MIT",
   "dependencies": {
+    "commander": "^2.9.0",
     "filendir": "^1.0.0",
     "glob": "^7.1.0",
     "mkdirp": "^0.5.1"

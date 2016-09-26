@@ -1,6 +1,9 @@
+#!/usr/bin/env node
+
 var fs = require("fs");
 var lodash = require("lodash");
 var filendir = require('filendir');
+var program = require('commander');
 
 var bufferSize = 4;
 var packetHeadLength = 14;
@@ -35,4 +38,16 @@ function unwx(inputPath, outputPath){
     });
 }
 
-unwx("output2.wx", __dirname);
+program
+    .version('0.0.1')
+    .usage('[options] <file ...>')
+    .option('-i, --input <n>', 'Input Dir')
+    .parse(process.argv);
+
+console.log('input:', program.input);
+
+if(program.input) {
+    unwx(program.input, __dirname);
+}
+
+
