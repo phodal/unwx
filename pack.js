@@ -31,11 +31,14 @@ function init() {
                     currentPacketLengthBuffer.writeInt32BE(currentPacketLength), packetLength += fileDataLength;
                     var fileDataLengthBuffer = new Buffer(4);
 
-                    console.log(currentPacketLengthBuffer.readInt32BE(0, 5));
+                    console.log("currentPacketLengthBuffer:" + currentPacketLengthBuffer.readInt32BE(0, 5));
 
                     fileDataLengthBuffer.writeInt32BE(fileDataLength);
-                    console.log(fileDataLengthBuffer.readInt32BE(0, 5));
+                    console.log("fileDataLengthBuffer:" + fileDataLengthBuffer.readInt32BE(0, 5));
 
+                    fileDataLengthBuffer.writeInt32BE(fileDataLength);
+                    var buf = Buffer.concat([pathLength, path, currentPacketLengthBuffer, fileDataLengthBuffer])
+                    console.log(buf.toString());
                     return fileDataLengthBuffer.writeInt32BE(fileDataLength), Buffer.concat([pathLength, path, currentPacketLengthBuffer, fileDataLengthBuffer])
                 });
 

@@ -8,39 +8,28 @@ fs.readFile("./output2.wx", function (err, data) {
 
     var filesData = data.slice(14 + pathHeadLength, 14 + pathHeadLength + allFilesBufferLength);
 
-    var bufferLength = 14 + pathHeadLength;
-    var fileStartPos = 0;
     var bufferSize = 4;
-    var lastDataLength = 0;
-    var lastFileLength = 0;
+    var filePathsBufferWithoutHead = filePathsBuffer.slice(4, filePathsBuffer.length);
 
-    while (bufferLength < allFilesBufferLength) {
-        var fileLength = filePathsBuffer.readInt32BE(fileStartPos, fileStartPos + bufferSize);
+    var dataForParse = data;
+    while (filePathsBuffer.length > 0) {
+        var fileLength = filePathsBuffer.readInt32BE(0, 4);
+        var filePath = filePathsBuffer.slice(bufferSize, bufferSize + fileLength);
 
-        if (lastFileLength === 0) {
-            lastFileLength = 0;
-        } else {
-            lastFileLength = fileLength + bufferSize * 4;
-        }
-        console.log(lastFileLength);
+        var filePathsBufferWithoutCurrentPath = filePathsBuffer.slice(fileLength + bufferSize, filePathsBufferWithoutHead.length);
 
-        var filePath = filePathsBuffer.slice(fileStartPos + bufferSize, fileStartPos + bufferSize + fileLength);
-        var fileDataLength = filePathsBuffer.readInt32BE(lastFileLength + fileLength + bufferSize * 2, lastFileLength + fileLength + bufferSize * 3);
+        var currentBufferLength = filePathsBufferWithoutCurrentPath.readInt32BE(0, 5);
+        var currentFileDataBuffer = filePathsBufferWithoutCurrentPath.readInt32BE(4, 8);
+        filesData = dataForParse.slice(currentBufferLength, data.length);
 
-        console.log("---------fileDataLength----------------", fileDataLength);
+        var fileData = filesData.slice(0, currentFileDataBuffer);
+        filePathsBuffer = filePathsBuffer.slice(fileLength + bufferSize * 3, filePathsBufferWithoutHead.length);
+        fs.writeFile('.' + filePath, fileData, function(err) {
+            if(err) {
+                return console.log(err);
+            }
 
-        var fileData = filesData.slice(lastDataLength, lastDataLength + fileDataLength);
-        lastDataLength = fileDataLength;
-
-        lastFileLength = fileLength + bufferSize * 4;
-        // fs.writeFile('.' + filePath, fileData, function(err) {
-        //     if(err) {
-        //         return console.log(err);
-        //     }
-        //
-        //     console.log(filePath);
-        // });
-        fileStartPos = bufferSize * 3 + fileLength + fileStartPos;
-        bufferLength = bufferLength + fileStartPos;
+            console.log(filePath);
+        });
     }
 });
