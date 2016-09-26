@@ -3,13 +3,6 @@ UnWX
 
 > a simple unpackage scripts for weapp wx file.
 
-
-
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
-
 | Packet Head       | File Info Packet                                                      | File Data                         |
 | ----------------- | --------------------------------------------------------------------- | --------------------------------- |
 | packet head       | filenumber \| path length \| path \| current pos \| file data length \| ..  | file data \| .. |
