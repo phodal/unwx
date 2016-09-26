@@ -9,6 +9,8 @@
   "author": "Phodal Huang",
   "license": "MIT",
   "dependencies": {
-    "glob": "^7.1.0"
+    "filendir": "^1.0.0",
+    "glob": "^7.1.0",
+    "mkdirp": "^0.5.1"
   }
 }
