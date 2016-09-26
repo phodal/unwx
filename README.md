@@ -3,6 +3,18 @@ UnWX
 
 > a simple unpackage scripts for weapp wx file.
 
+
+
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+
+| Packet Head       | File Info Packet                                                      | File Data                         |
+| ----------------- | --------------------------------------------------------------------- | --------------------------------- |
+| packet head       | filenumber \| path length \| path \| current pos \| file data length \| ..  | file data \| .. |
+| 1 \| 4 \| 4 \| 4 \| 1 |  4         \| 4               \|  path length  \| 4                   \| hello.js data length \| ..| console.log(..)  \|..|
+
 Usage:
 
 ```bash
