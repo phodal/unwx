@@ -3,8 +3,15 @@ UnWX
 
 > a simple unpackage scripts for weapp wx file.
 
-still ongoing.
+Usage:
 
+```bash
+npm install -g unwx
+```
+
+```
+unwx -i output.wx
+```
 
 License
 ---
