@@ -1,6 +1,6 @@
 {
   "name": "unwx",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "a simple unpackage scripts for weapp wx file.",
   "main": "unwx.js",
   "scripts": {

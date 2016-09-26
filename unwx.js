@@ -46,7 +46,7 @@ program
 console.log('input:', program.input);
 
 if(program.input) {
-    unwx(program.input, __dirname);
+    unwx(program.input, process.cwd() + '/output');
 }
 
 
